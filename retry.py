@@ -1,6 +1,7 @@
 import functools
-import time
 import random
+import time
+
 
 def retry(retries=3, delay=0.5, exceptions=(Exception,)):
     def decorator(func):
@@ -14,14 +15,18 @@ def retry(retries=3, delay=0.5, exceptions=(Exception,)):
                         raise
                     print(f"Attempt {attempt} failed: {e}. Retrying...")
                     time.sleep(delay)
+
         return wrapper
+
     return decorator
+
 
 @retry(retries=5, delay=1)
 def unstable_call():
     if random.random() < 0.8:
         raise ConnectionError("Connection dropped")
     return "Success!"
+
 
 print(unstable_call())
 # Attempt 1 failed: Connection dropped. Retrying...

@@ -1,5 +1,6 @@
-import time
 import functools
+import time
+
 
 def timeit(func):
     @functools.wraps(func)
@@ -9,11 +10,14 @@ def timeit(func):
         elapsed = (time.perf_counter() - start) * 1000
         print(f"{func.__name__} executed in {elapsed:.2f} ms")
         return result
+
     return wrapper
+
 
 @timeit
 def compute(n):
     return sum(range(n))
+
 
 compute(10_000_000)
 # compute executed in 71.61 ms
